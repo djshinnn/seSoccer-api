@@ -29,5 +29,5 @@ mongoose
   .connect(
     `mongodb+srv://seSoccer:${process.env.MONGODB_PASSWORD}@cluster0.zqwuieq.mongodb.net/sesoccer`
   )
-  .then(() => app.listen(5000))
+  .then(() => app.listen(5050))
   .catch((err) => console.log(err));
