@@ -4,13 +4,27 @@ const mongoose = require("mongoose");
 require("dotenv").config({ path: ".env" });
 
 const usersRoutes = require("./routes/user-routes");
+const roundsRoutes = require("./routes/rounds-routes");
 const HttpError = require("./models/http-error");
 
 const app = express();
 
 app.use(bodyParser.json()); // "Content-Type" : "application/json"
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-with, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+
+  next();
+});
+
 app.use("/api/users", usersRoutes);
+
+app.use("/api/rounds", roundsRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("찾을 수 없는 경로입니다.", 404);
